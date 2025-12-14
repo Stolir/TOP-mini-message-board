@@ -10,3 +10,7 @@ const messages = [
     added: new Date(),
   },
 ];
+
+const getAll = () => messages;
+
+module.exports = { getAll };
