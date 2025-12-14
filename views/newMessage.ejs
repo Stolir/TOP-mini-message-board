@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%= title %>
+    <form method="POST" action="/new">
+      <div>
+        <label for="user">Author:</label>
+        <input name="user" type="text" placeholder="Stolir" />
+      </div>
+      <div>
+        <label for="message">Message:</label>
+        <input name="message" type="text" placeholder="Hello, world!" />
+      </div>
+
+      <button type="submit">Post</button>
+    </form>
+  </body>
+</html>

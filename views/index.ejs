@@ -3,15 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
     <title><%= title %></title>
   </head>
   <body>
     <h2><%= title %></h2>
     <% messages.forEach((message) => { %>
-    <div>
+    <div class="messageContainer">
       <p><%= message.user %></p>
-      <p><%= message.text %></p>
-      <p><%= message.added %></p>
+      <a href="/messages/<%= message.id %>">
+        <h4><%= message.text %></h4>
+      </a>
+      <p class="date"><%= message.added %></p>
     </div>
     <% }) %>
   </body>
