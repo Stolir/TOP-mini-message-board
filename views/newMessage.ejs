@@ -6,7 +6,7 @@
     <title><%= title %></title>
   </head>
   <body>
-    <%= title %>
+    <%- include('partials/errors.ejs') %>
     <form method="POST" action="/new">
       <div>
         <label for="username">Author:</label>
