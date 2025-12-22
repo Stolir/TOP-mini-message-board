@@ -1,25 +1,27 @@
 const messagesModel = require("../models/messagesModel");
 
-const getMessageBoard = (req, res) => {
-  const messages = messagesModel.getAll();
+async function getMessageBoard(req, res) {
+  const messages = await messagesModel.getAll();
+  console.log(messages);
   res.render("index", { title: "Message Board", messages });
-};
+}
 
 const getNewMessageForm = (req, res) => {
   res.render("newMessage", { title: "Post a new message!" });
 };
 
-const getMessageDetails = (req, res) => {
+async function getMessageDetails(req, res) {
   const { messageId } = req.params;
-  const message = messagesModel.getMessage(messageId);
-  res.render("messageDetails", { message });
-};
+  const message = await messagesModel.getMessage(messageId);
+  console.log(message);
+  res.render("messageDetails", { message: message[0] });
+}
 
-const postNewMessage = (req, res) => {
+async function postNewMessage(req, res) {
   const messageInfo = req.body;
-  messagesModel.addNewMessage(messageInfo.user, messageInfo.message);
+  await messagesModel.addNewMessage(messageInfo.username, messageInfo.message);
   res.redirect("/");
-};
+}
 
 module.exports = {
   getMessageBoard,

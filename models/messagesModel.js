@@ -1,26 +1,40 @@
-const messages = [
-  {
-    id: 1,
-    text: "Hi there!",
-    user: "Amando",
-    added: new Date(),
-  },
-  {
-    id: 2,
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date(),
-  },
-];
+const pool = require("../database/pool");
 
-const getAll = () => messages;
+async function getAll() {
+  const query = "SELECT * FROM messages";
 
-const addNewMessage = (text, user) => {
-  messages.push({ id: messages.length + 1, text, user, added: new Date() });
-};
+  try {
+    const { rows } = await pool.query(query);
+    return rows;
+  } catch (err) {
+    console.error("Error getting messages: ", err);
+    throw err;
+  }
+}
 
-const getMessage = (id) => {
-  return messages.find((message) => message.id === Number(id));
-};
+async function addNewMessage(username, text) {
+  const query = "INSERT INTO messages (username, text) VALUES ($1, $2)";
+  const values = [username, text];
+
+  try {
+    await pool.query(query, values);
+  } catch (err) {
+    console.error("Error inserting message: ", err);
+    throw err;
+  }
+}
+
+async function getMessage(id) {
+  const query = "SELECT * FROM messages WHERE id=($1)";
+  const values = [id];
+
+  try {
+    const { rows } = await pool.query(query, values);
+    return rows;
+  } catch (err) {
+    console.error("Error getting message: ", err);
+    throw err;
+  }
+}
 
 module.exports = { getAll, addNewMessage, getMessage };
